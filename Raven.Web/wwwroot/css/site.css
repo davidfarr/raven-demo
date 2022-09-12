@@ -1,0 +1,146 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+/* Custom font styles
+-------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Abel', sans-serif;
+}
+
+p {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.site-logo {
+    padding-bottom: 2em;
+}
+
+.site-logo span {
+    font-family: 'My Soul', cursive;
+    font-size: 3em;
+    text-align: center;
+    display: inline-block;
+    vertical-align: bottom;
+    color: #e8eaed;
+    line-height:55px;
+}
+.site-logo img {
+    max-width: 15%;
+    height: auto;
+    -webkit-filter: drop-shadow(5px 5px 5px #222222);
+    filter: drop-shadow(5px 5px 5px #222222);
+}
+
+.app-div {
+    margin-top: 5vh;
+    background-color: #353b48;
+    border-radius: 25px;
+    padding: 20px;
+    width: 100%;
+}
+
+.project-buttons button {
+    margin-right:1.15em;
+    margin-top:0.75em;
+}
+
+.table {
+    color: #e8eaed;
+}
+
+/* Provide sufficient contrast against white background */
+a, a:visited {
+    color: #487eb0;
+}
+
+a:hover {
+    color: #00a8ff;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.cell-ok {
+    background-color: #738678;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-top: 0.15em;
+    padding-bottom: 0.15em;
+    border: 1px solid #44bd32;
+    border-radius: 5px;
+}
+
+.cell-alert {
+    background-color: #7c4848;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-top: 0.15em;
+    padding-bottom: 0.15em;
+    border: 1px solid #c23616;
+    border-radius: 5px;
+}
+
+.modal-content {
+    color: #e8eaed;
+    background-color: #2f3640;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #2f3640;
+    color: #e8eaed;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+  margin-left: 25vw;
+  margin-right: auto;
+}
