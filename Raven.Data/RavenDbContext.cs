@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Raven.Core;
+using Raven.Core.Models;
 
 namespace Raven.Data
 {
@@ -24,11 +25,11 @@ namespace Raven.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=Raven_demo;Integrated Security=True;");
-            }
+            //optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=Raven_demo;Integrated Security=True;"); //use for localhost/non-Docker
+            //optionsBuilder.UseSqlServer("Data Source=host.docker.internal;Initial Catalog=Raven_demo;Integrated Security=True"); //use for Docker - requires more CORS configuration
+
+            //connect to Azure secrets to avoid having to swap this info out
+            optionsBuilder.UseSqlServer("Server=tcp:davidfarr-dev.database.windows.net,1433;Initial Catalog=Raven_Demo;Persist Security Info=False;User ID={user id};Password={password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Raven.Data
+namespace Raven.Core.Models
 {
     public partial class Requirement : IProjectDatum
     {

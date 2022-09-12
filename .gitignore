@@ -3,3 +3,7 @@
 */bin/*
 *.lock
 .vs/*
+*.sln
+*/RavenDemo.sln
+*.user
+*.sln
