@@ -1,28 +1,39 @@
 ﻿@page
 @model IndexModel
-<div class="row">
+<div class="row" id="projectBack" style="display:none">
     <button type="button" class="btn btn-outline-light btn-lg"><i class="bi bi-caret-left"></i> Select project</button>
 </div>
 
-<div class="row"> 
+<div class="row" id="projectSelect">
     <div class="text-center app-div">
-        <h2>Select or <a href="#" data-bs-toggle="modal" data-bs-target="#newProjModal">create a new project</a></h2>
-        <div class="row project-buttons">
-            <button type="button" class="btn btn-outline-light btn-sm">Project One quite long name here</button>
-            <button type="button" class="btn btn-outline-light btn-sm">Project h quite long name as a quite long name here</button>
-            <button type="button" class="btn btn-outline-light btn-sm">Three</button>
-            <button type="button" class="btn btn-outline-light btn-sm">Project Four</button>
-            <button type="button" class="btn btn-outline-light btn-sm">This is Five  quite long name here quite long name here</button>
-            <button type="button" class="btn btn-outline-light btn-sm">Project One quite long name here</button>
-            <button type="button" class="btn btn-outline-light btn-sm">Project has a quite long name here</button>
-            <button type="button" class="btn btn-outline-light btn-sm">Three</button>
-            <button type="button" class="btn btn-outline-light btn-sm">Project  quite long name Four</button>
-            <button type="button" class="btn btn-outline-light btn-sm">This is Five  quite long name here quite long name here</button>
-        </div>
-    </div> 
+        <h2>Select or <a href="#" onclick="NewProj()">create a new project</a></h2>
+        <div class="row project-buttons text-center"></div>
+    </div>
 </div>
 
-<div class="row">
+<div class="row" id="projCreate" style="display:none">
+    <div class="app-div">
+        <form>
+            <h2><i class="bi bi-node-plus"></i> Add new project</h2>
+            <div class="mb-3">
+                <label for="projTitle" class="form-label">Title</label>
+                <input type="text" id="projTitle" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="shortCode" class="form-label">Title Short-Code</label>
+                <input type="text" id="shortCode" class="form-control" maxlength="5" />
+                <div class="form-text">This will be used to identify the project when loading</div>
+            </div>
+            <div class="mb-3">
+                <label for="projInfo" class="form-label">Description</label>
+                <textarea type="text" id="projInfo" style="min-height: 5vh;" class="form-control" placeholder="Add some information about the project"></textarea>
+            </div>
+            <button type="submit" id="saveProject" class="btn btn-primary">Save project</button>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="requirementSelect" style="display:none;">
     <div class="text-center app-div">
         <h2>Select or <a href="#" data-bs-toggle="modal" data-bs-target="#newReqmodal">create a new design requirement</a></h2>
         <table class="table">
@@ -74,7 +85,7 @@
     </div>
 </div>
 
-<!-- Project Req. modal -->
+@*<!-- Project Req. modal -->
 <div class="modal fade" id="tcModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -97,7 +108,7 @@
                             <label for="updated" class="form-label">Updated Date</label>
                             <p id="updated">a day</p>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label" placeholder="Use a simple, concise name">Requirement Title</label>
@@ -172,10 +183,10 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
-<!-- New Project Modal -->
-<div class="modal fade" id="newProjModal" tabindex="-1" aria-hidden="true">
+@*<!-- New Project Modal -->
+<div class="modal fade" id="newProjModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -184,31 +195,31 @@
                     <a href="#" class="modal-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x"></i></a>
                 </h1>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="projTitle" class="form-label">Title</label>
-                    <input id="projTitle" class="form-control" />
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="projTitle" class="form-label">Title</label>
+                        <input type="text" id="projTitle" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="shortCode" class="form-label">Title Short-Code</label>
+                        <input type="text" id="shortCode" class="form-control" maxlength="5" />
+                        <div class="form-text">This will be used to identify the project when loading</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="projInfo" class="form-label">Description</label>
+                        <textarea type="text" id="projInfo" style="min-height: 5vh;" class="form-control" placeholder="Add some information about the project"></textarea>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="shortCode" class="form-label">Title Short-Code</label>
-                    <input id="shortCode" class="form-control" maxlength="5" />
-                    <div class="form-text">This will be used to identify the project when loading</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="saveProject" class="btn btn-primary">Save project</button>
                 </div>
-                <div class="mb-3">
-                    <label for="projInfo" class="form-label">Description</label>
-                    <textarea style="min-height: 5vh;" class="form-control" placeholder="Add some information about the project"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save project</button>
-            </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <!-- New Requirement Modal -->
-<div class="modal fade" id="newReqmodal" tabindex="-1" aria-hidden="true">
+@*<div class="modal fade" id="newReqmodal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -238,5 +249,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
