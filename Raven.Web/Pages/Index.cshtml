@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 <div class="row" id="projectBack" style="display:none">
-    <button type="button" class="btn btn-outline-light btn-lg"><i class="bi bi-caret-left"></i> Select project</button>
+    <button type="button" id="selectNewProject" class="btn btn-outline-light btn-lg"><i class="bi bi-caret-left"></i> Select project</button>
 </div>
 
 <div class="row" id="projectSelect">
@@ -28,15 +28,45 @@
                 <label for="projInfo" class="form-label">Description</label>
                 <textarea type="text" id="projInfo" style="min-height: 5vh;" class="form-control" placeholder="Add some information about the project"></textarea>
             </div>
+            <button type="button" id="cancelNewProject" class="btn btn-secondary">Cancel</button>
             <button type="submit" id="saveProject" class="btn btn-primary">Save project</button>
         </form>
+    </div>
+</div>
+
+<div class="row" id="projectDetails" style="display:none">
+    <div class="app-div">
+        <div class="row">
+            <div class="col-2">
+                <img src="~/Icons/002-raven-1.png" style="max-height:125px; max-width:auto;" />
+            </div>
+            <div class="col">
+                <div class="row">
+                    <h1><i class="bi bi-info-circle"></i>&nbsp;<span id="details-title"></span></h1>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Shortcode</h4>
+                        <p><div id="details-shortcode"></div></p>
+                        <h4>Description</h4>
+                        <p><div id="details-info"></div></p>
+                    </div>
+                    <div class="col">
+                        <h4>Created On (UTC)</h4>
+                        <p><div id="details-created"></div> </p>
+                        <h4>Updated (UTC)</h4>
+                        <p><div id="details-updated"></div></p>
+                    </div>
+                </div>              
+            </div>
+        </div>       
     </div>
 </div>
 
 <div class="row" id="requirementSelect" style="display:none;">
     <div class="text-center app-div">
         <h2>Select or <a href="#" data-bs-toggle="modal" data-bs-target="#newReqmodal">create a new design requirement</a></h2>
-        <table class="table">
+        <table class="table" id="reqsTable">
             <thead>
                 <tr>
                     <th scope="col">Title</th>
@@ -48,49 +78,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Users should be able to do thing</td>
-                    <td>v2.011.101</td>
-                    <td>@DateTime.UtcNow</td>
-                    <td>@DateTime.UtcNow</td>
-                    <td><span class="cell-alert">Not Covered</span></td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tcModal">Expand <i class="bi bi-box-arrow-in-up-right"></i></button></td>
-                </tr>
-                <tr>
-                    <td>Users should be able to do thing</td>
-                    <td>v2.011.101</td>
-                    <td>@DateTime.UtcNow</td>
-                    <td>@DateTime.UtcNow</td>
-                    <td><span class="cell-ok">Covered</span></td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tcModal">Expand <i class="bi bi-box-arrow-in-up-right"></i></button></td>
-                </tr>
-                <tr>
-                    <td>Users should be able to do thing</td>
-                    <td>v2.011.101</td>
-                    <td>@DateTime.UtcNow</td>
-                    <td>@DateTime.UtcNow</td>
-                    <td><span class="cell-alert">Not Covered</span></td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tcModal">Expand <i class="bi bi-box-arrow-in-up-right"></i></button></td>
-                </tr>
-                <tr>
-                    <td>Users should be able to do thing</td>
-                    <td>v2.011.101</td>
-                    <td>@DateTime.UtcNow</td>
-                    <td>@DateTime.UtcNow</td>
-                    <td><span class="cell-ok">Covered</span></td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tcModal">Expand <i class="bi bi-box-arrow-in-up-right"></i></button></td>
-                </tr>
+
             </tbody>
         </table>
     </div>
 </div>
 
-@*<!-- Project Req. modal -->
+<!-- Req. + test case modal -->
 <div class="modal fade" id="tcModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title"><i class="bi bi-book"></i> Users should be able to do thing</h2>
+                <h2 class="modal-title"><i class="bi bi-book"></i> <span id="reqdetail-title-header"></span></h2>
                 <h1>
                     <a href="#" class="modal-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x"></i></a>
                 </h1>
@@ -100,35 +99,35 @@
                     <div class="col">
                         <div class="mb-3">
                             <label for="created" class="form-label">Created Date</label>
-                            <p id="created">a day</p>
+                            <p id="reqdetail-created"></p>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label for="updated" class="form-label">Updated Date</label>
-                            <p id="updated">a day</p>
+                            <p id="reqdetail-updated"></p>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label" placeholder="Use a simple, concise name">Requirement Title</label>
-                    <input type="text" class="form-control" required />
+                    <input id="reqdetail-title" type="text" class="form-control" required />
                 </div>
                 <div class="mb-3">
                     <label for="info" class="form-label">Information</label>
-                    <textarea id="info" placeholder="Describe this requirement in more detail" class="form-control" style="min-height:10vh;"></textarea>
+                    <textarea id="reqdetail-info" placeholder="Describe this requirement in more detail" class="form-control" style="min-height:vh;"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="version" class="form-label">Version Introduced</label>
-                    <input id="version" type="text" class="form-control"/>
+                    <input id="reqdetail-version" type="text" class="form-control"/>
                     <div class="form-text">The requirement will apply as of this version</div>
                 </div>
                 <br />
                 <div class="testCasesTable">
-                    <h2><i class="bi bi-clipboard2-check"></i> Review or <a href="#">create test case</a></h2>
+                    <h2><i class="bi bi-clipboard2-check"></i> Review or <a href="#" onclick="SetupTestCase()">create test case</a></h2>
                     <div class="row">
                         <div class="col">
-                            <table class="table">
+                            <table id="tcTable" class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Test Case Title</th>
@@ -138,33 +137,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Does thing a</td>
-                                        <td>@DateTime.UtcNow</td>
-                                        <td>@DateTime.UtcNow</td>
-                                        <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tcModal">Open <i class="bi bi-caret-right-fill"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Does thing a</td>
-                                        <td>@DateTime.UtcNow</td>
-                                        <td>@DateTime.UtcNow</td>
-                                        <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tcModal">Open <i class="bi bi-caret-right-fill"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Does thing a</td>
-                                        <td>@DateTime.UtcNow</td>
-                                        <td>@DateTime.UtcNow</td>
-                                        <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tcModal">Open <i class="bi bi-caret-right-fill"></i></button></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="createTC">
+                <div class="createTC" style="display:none">
                     <br />
-                    <div class="newTcTitle"><h2><i class="bi bi-file-earmark-plus"></i> New Test Case</h2></div>
-                    <div class="editTcTitle"><h2><i class="bi bi-pencil"></i> Modify Test Case</h2></div>
+                    <div class="newTcTitle" style="display:none"><h2><i class="bi bi-file-earmark-plus"></i> New Test Case</h2></div>
+                    <div class="editTcTitle" style="display:none"><h2><i class="bi bi-pencil"></i> Review Test Case</h2></div>
                     <div class="mb-3">
                         <label for="tcTitle" class="form-label">Title</label>
                         <input id="tcTitle" type="text" class="form-control" />
@@ -172,54 +153,22 @@
                     </div>
                     <div class="mb-3">
                         <label for="tcInfo" class="form-label">Body</label>
-                        <textarea class="form-control" id="tcInfo" required style="min-height:5vh;" placeholder="Add some info or steps to validate this requirement"></textarea>
+                        <textarea class="form-control" id="tcInfo" required style="min-height:10vh;" placeholder="Add some info or steps to validate this requirement"></textarea>
                     </div>
-                    <button class="btn btn-primary">Save Test Case</button>
+                    <button type="button" id="cancelTC" onclick="TeardownTestCase()" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" id="saveTC" class="btn btn-primary">Save Test Case</button>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save Requirement</button>
+                <button type="button" id="updaterequirement" class="btn btn-primary">Save Requirement</button>
             </div>
         </div>
     </div>
-</div>*@
-
-@*<!-- New Project Modal -->
-<div class="modal fade" id="newProjModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title"><i class="bi bi-node-plus"></i> Add new project</h2>
-                <h1>
-                    <a href="#" class="modal-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x"></i></a>
-                </h1>
-            </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="projTitle" class="form-label">Title</label>
-                        <input type="text" id="projTitle" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="shortCode" class="form-label">Title Short-Code</label>
-                        <input type="text" id="shortCode" class="form-control" maxlength="5" />
-                        <div class="form-text">This will be used to identify the project when loading</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="projInfo" class="form-label">Description</label>
-                        <textarea type="text" id="projInfo" style="min-height: 5vh;" class="form-control" placeholder="Add some information about the project"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="saveProject" class="btn btn-primary">Save project</button>
-                </div>
-        </div>
-    </div>
-</div>*@
+</div>
 
 <!-- New Requirement Modal -->
-@*<div class="modal fade" id="newReqmodal" aria-hidden="true">
+<div class="modal fade" id="newReqmodal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -231,7 +180,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="reqtitle" class="form-label" placeholder="Use a simple, concise name">Requirement Title</label>
-                    <input type="reqtext" class="form-control" required />
+                    <input type="text" id="reqtext" class="form-control" required />
                 </div>
                 <div class="mb-3">
                     <label for="reqinfo" class="form-label">Information</label>
@@ -245,9 +194,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save project</button>
+                <button type="button" id="newrequirement" class="btn btn-primary">Save requirement</button>
             </div>
         </div>
     </div>
-</div>*@
+</div>
+<input id="projectIdentifier" type="hidden"  />
+<input id="reqIdentifier" type="hidden" />
+<input id="caseIdentifier" type="hidden" />
 

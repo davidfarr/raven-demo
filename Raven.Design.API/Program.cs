@@ -1,10 +1,6 @@
-using Raven.Core.Interfaces;
-using Raven.Core.Repositories;
-using Raven.Data;
-using Raven.Services;
-using Raven.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using Raven.Data;
+using Raven.Core.Models;
 
 var AllowSpecificOrigins = "_allowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -20,16 +16,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: AllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins(
-                "https://localhost:49185",
-                "https://localhost:49187",
-                "https://localhost:49189",
-                "https://localhost:7099",
-                "http://localhost:49185",
-                "http://localhost:49187",
-                "http://localhost:49189",
-                "http://localhost:7099"
-                );
+            policy.AllowAnyHeader();
+            policy.AllowAnyMethod();
+            policy.AllowAnyOrigin();
         });
 });
 
@@ -48,12 +37,13 @@ app.UseHttpsRedirection();
 
 app.MapPost("/design/create", async (Requirement rq, RavenDbContext db) =>
 {
+    rq.CreatedDate = DateTime.UtcNow;
     db.Requirements.Add(rq);
     await db.SaveChangesAsync();
     return Results.Created($"/design/{rq.RequirementId}", rq);
 }).WithName("CreateRequirement");
 
-app.MapGet("/design/{requirementId}", async (Guid requirementId, RavenDbContext db) =>
+app.MapGet("/design/requirement/{requirementId}", async (Guid requirementId, RavenDbContext db) =>
 {
     var foundReq = await db.Requirements.FirstOrDefaultAsync(x => x.RequirementId == requirementId);
     if (foundReq != null)
@@ -61,7 +51,7 @@ app.MapGet("/design/{requirementId}", async (Guid requirementId, RavenDbContext 
     return null;
 }).WithName("GetRequirement");
 
-app.MapGet("/design/{projectId}", async (Guid projectId, RavenDbContext db) =>
+app.MapGet("/design/project/{projectId}", async (Guid projectId, RavenDbContext db) =>
 {
     var foundReqs = await db.Requirements.Where(x => x.ProjectId == projectId).ToListAsync();
     return foundReqs;
@@ -84,7 +74,7 @@ app.MapPost("/design/update", async (Requirement rq, RavenDbContext db) =>
     if (rq.Info != foundReq.Info)
         foundReq.Info = rq.Info;
 
-    if (rq.VersionIntroduced == foundReq.VersionIntroduced)
+    if (rq.VersionIntroduced != foundReq.VersionIntroduced)
         foundReq.VersionIntroduced = rq.VersionIntroduced;
 
     foundReq.UpdatedDate = DateTime.UtcNow;
@@ -94,7 +84,7 @@ app.MapPost("/design/update", async (Requirement rq, RavenDbContext db) =>
     return foundReq;
 }).WithName("UpdateRequirement");
 
-app.MapDelete("/design/{requirementId}", async (Guid requirementId, RavenDbContext db) =>
+app.MapDelete("/design/delete/{requirementId}", async (Guid requirementId, RavenDbContext db) =>
 {
     var foundReq = await db.Requirements.FirstOrDefaultAsync(x => x.RequirementId == requirementId);
     if (foundReq == null)

@@ -3,35 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raven.Core", "Raven.Core\Raven.Core.csproj", "{1CC8CE97-C1A7-46E5-A325-BEAA8C80061A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raven.Core", "Raven.Core\Raven.Core.csproj", "{1CC8CE97-C1A7-46E5-A325-BEAA8C80061A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raven.Data", "Raven.Data\Raven.Data.csproj", "{AE1EC98C-00F7-418C-B158-51DFC158FCE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raven.Data", "Raven.Data\Raven.Data.csproj", "{AE1EC98C-00F7-418C-B158-51DFC158FCE7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1CC8CE97-C1A7-46E5-A325-BEAA8C80061A} = {1CC8CE97-C1A7-46E5-A325-BEAA8C80061A}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D8D0E761-0EBC-489C-927C-50F37DE7FD7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raven.Web", "Raven.Web\Raven.Web.csproj", "{7FA3967C-15D4-44BF-9E36-D110F95B2073}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raven.Web", "Raven.Web\Raven.Web.csproj", "{7FA3967C-15D4-44BF-9E36-D110F95B2073}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1CC8CE97-C1A7-46E5-A325-BEAA8C80061A} = {1CC8CE97-C1A7-46E5-A325-BEAA8C80061A}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raven.Unit.Test", "Raven.Unit.Test\Raven.Unit.Test.csproj", "{931F8F58-003B-4F16-87ED-B5BBA9AAD624}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1CC8CE97-C1A7-46E5-A325-BEAA8C80061A} = {1CC8CE97-C1A7-46E5-A325-BEAA8C80061A}
 		{AE1EC98C-00F7-418C-B158-51DFC158FCE7} = {AE1EC98C-00F7-418C-B158-51DFC158FCE7}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raven.Unit.Test", "Raven.Unit.Test\Raven.Unit.Test.csproj", "{931F8F58-003B-4F16-87ED-B5BBA9AAD624}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1CC8CE97-C1A7-46E5-A325-BEAA8C80061A} = {1CC8CE97-C1A7-46E5-A325-BEAA8C80061A}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raven.Testing.API", "Raven.Testing.API\Raven.Testing.API.csproj", "{FA2875E5-8D3E-49A3-A2CD-3AA4D4D2D58F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raven.Testing.API", "Raven.Testing.API\Raven.Testing.API.csproj", "{FA2875E5-8D3E-49A3-A2CD-3AA4D4D2D58F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1CC8CE97-C1A7-46E5-A325-BEAA8C80061A} = {1CC8CE97-C1A7-46E5-A325-BEAA8C80061A}
 		{AE1EC98C-00F7-418C-B158-51DFC158FCE7} = {AE1EC98C-00F7-418C-B158-51DFC158FCE7}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raven.Projects.API", "Raven.Projects.API\Raven.Projects.API.csproj", "{AD3C8D04-1C7A-421B-8FE7-B69BA01D3686}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raven.Projects.API", "Raven.Projects.API\Raven.Projects.API.csproj", "{AD3C8D04-1C7A-421B-8FE7-B69BA01D3686}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raven.Design.API", "Raven.Design.API\Raven.Design.API.csproj", "{859A23DC-3ABA-4F00-AF34-BBDC38AD45E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raven.Design.API", "Raven.Design.API\Raven.Design.API.csproj", "{859A23DC-3ABA-4F00-AF34-BBDC38AD45E6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1CC8CE97-C1A7-46E5-A325-BEAA8C80061A} = {1CC8CE97-C1A7-46E5-A325-BEAA8C80061A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

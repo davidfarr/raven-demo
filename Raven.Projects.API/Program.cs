@@ -1,13 +1,6 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Raven.Core.Interfaces;
 using Raven.Core.Models;
-using Raven.Core.Repositories;
 using Raven.Data;
-using Raven.Data.Repositories;
-using Raven.Services;
-using static System.Net.Mime.MediaTypeNames;
 
 var AllowSpecificOrigins = "_allowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -23,16 +16,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: AllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins(
-                "https://localhost:49185",
-                "https://localhost:49187",
-                "https://localhost:49189",
-                "https://localhost:7099",
-                "http://localhost:49185",
-                "http://localhost:49187",
-                "http://localhost:49189",
-                "http://localhost:7099"
-                );
+            policy.AllowAnyHeader();
+            policy.AllowAnyMethod();
+            policy.AllowAnyOrigin();
         });
 });
 
@@ -51,12 +37,14 @@ app.UseHttpsRedirection();
 
 app.MapPost("/projects/create", async (Project proj, RavenDbContext db) =>
 {
+    proj.CreatedDate = DateTime.UtcNow;
+    proj.Title = proj.Title.ToUpper();
     db.Projects.Add(proj);
     await db.SaveChangesAsync();
     return Results.Created($"/projects/{proj.ProjectId}", proj);
 }).WithName("CreateProject");
 
-app.MapGet("/projects", async (RavenDbContext db) => 
+app.MapGet("/projects", async (RavenDbContext db) =>
     await db.Projects.ToListAsync())
     .WithName("GetAllProjects");
 
@@ -85,7 +73,7 @@ app.MapPost("/projects/update", async (Project proj, RavenDbContext db) =>
         return null; //no changes to save
 
     if (proj.Title != foundProject.Title)
-        foundProject.Title = proj.Title;
+        foundProject.Title = proj.Title.ToUpper();
 
     if (proj.Info != foundProject.Info)
         foundProject.Info = proj.Info;
@@ -103,7 +91,7 @@ app.MapPost("/projects/update", async (Project proj, RavenDbContext db) =>
 app.MapDelete("/projects/{projectId}", async (Guid projectId, RavenDbContext db) =>
 {
     var foundProject = await db.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
-    if(foundProject == null)
+    if (foundProject == null)
         throw new Exception("No matching record found");
     db.Projects.Remove(foundProject);
     await db.SaveChangesAsync();
