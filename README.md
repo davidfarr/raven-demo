@@ -37,13 +37,13 @@ This demo application is not meant to be a final product, but as a first iterati
 ![Video gif of a project being created in application](/screengrabs/CreatingProject.gif)
 
 ### Create Software Requirements
-[Video screengrab](/screengrabs/CreatingRequirement.gif)
-![Video gif of software requirements being created in application](/screengrabs/CreatingRequirement.gif)
+[Video screengrab](/screengrabs/CreateRequirement.gif)
+![Video gif of software requirements being created in application](/screengrabs/CreateRequirement.gif)
 Requirements can also be modified!
 
 ### Create Test cases
-[Video screengrab](/screengrabs/CreatingTestCases.gif)
-![Video gif of test cases being created in application](/screengrabs/CreatingTestCases.gif)
+[Video screengrab](/screengrabs/CreateTestCases.gif)
+![Video gif of test cases being created in application](/screengrabs/CreateTestCases.gif)
 Test cases can also be modified!
 
 ## Next Steps
