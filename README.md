@@ -33,14 +33,14 @@ This demo application is not meant to be a final product, but as a first iterati
 
 ## Main Features
 ### Create Projects
-/screengrabs/CreatingProject.gif
+![Video gif of a project being created in application](/screengrabs/CreatingProject.gif)
 
 ### Create Software Requirements
-/screengrabs/CreatingRequirement.gif
+![Video gif of software requirements being created in application](/screengrabs/CreatingRequirement.gif)
 Requirements can also be modified!
 
 ### Create Test cases
-/screengrabs/CreatingTestCases.gif
+![Video gif of test cases being created in application](/screengrabs/CreatingTestCases.gif)
 Test cases can also be modified!
 
 ## Next Steps
